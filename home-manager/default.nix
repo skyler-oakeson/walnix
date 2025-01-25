@@ -1,4 +1,3 @@
-{...}:
-{
-  imports = ../utils/generate.nix;
-}
+{ config, pkgs, lib, ...}:
+
+import ../utils/generate.nix { inherit config pkgs lib; }
