@@ -1,0 +1,4 @@
+{...}:
+{
+  imports = ../utils/generate.nix;
+}
