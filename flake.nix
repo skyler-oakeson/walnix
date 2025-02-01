@@ -8,8 +8,7 @@
   outputs = { self, nixpkgs, ... }@inputs : 
   {
     homeManagerModules = {
-      walnix = import ./walnix/home-manager/module.nix { };
-      modules = import ./modules { };
+      walnix = import ./walnix/home-manager { };
       default = self.homeManagerModules.walnix;
     };
   };
