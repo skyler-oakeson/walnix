@@ -1,16 +1,16 @@
 { config, lib, ... }: 
 
-lib.mkIf (
+{
+  config = lib.mkIf (
     config.walnix.enable &&
     config.programs.kitty.enable
   )
   ( 
    let
-     inherit (config.lib.walnix.colors) hex;
+     inherit (config.walnix.colors) hex;
    in
    with hex; {
-      settings =
-        {
+      programs.kitty.settings = {
           background = "${background}";
           foreground = "${foreground}";
           selection_background = "${foreground}";
@@ -57,5 +57,6 @@ lib.mkIf (
           color21 = "${color6}";
       };
     }
-)
+  );
+}
 
