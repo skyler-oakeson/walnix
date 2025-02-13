@@ -16,7 +16,7 @@ let
       ${if cfg.fallbackGenerator != null then "--fallback-generator ${cfg.fallbackGenerator}" else ""} \
       ${if cfg.palette != null then "--palette ${cfg.palette}" else ""} \
       ${if cfg.saturation != null then "--saturation ${builtins.toString cfg.saturation}" else ""} \
-      ${if cfg.threshold != null then (if cfg.dynamicThreshold != null then "--threshold ${builtins.toString cfg.threshold}"
+      ${if cfg.threshold != null then (if cfg.dynamicThreshold == null then "--threshold ${builtins.toString cfg.threshold}"
       else throw "dynamicThreshold and threshold cannot be defined simultaneously") else ""} \
       ${if cfg.quiet == true then "-q" else ""}
 
@@ -84,8 +84,7 @@ in
         "dark16"
         "darkcomp"
         "darkcomp16"
-        "ansidark"
-        "ansidark16"
+        "darkansi"
         "harddark"
         "harddark16"
         "harddarkcomp"
@@ -110,12 +109,12 @@ in
     };
 
     saturation = mkOption {
-      type = types.nullOr (types.ints.between 0 100);
+      type = types.nullOr (types.ints.between 1 100);
       default = null;
     };
 
     threshold = mkOption {
-      type = types.nullOr (types.ints.between 0 100);
+      type = types.nullOr (types.ints.between 1 100);
       default = null;
     };
 
@@ -123,7 +122,6 @@ in
       type = types.nullOr (types.bool);
       default = null;
     };
-
   };
 
   config = 
