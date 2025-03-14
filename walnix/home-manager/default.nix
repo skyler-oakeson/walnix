@@ -137,9 +137,9 @@ in
     };
   };
 
-  imports = [
-    ./modules/kitty.nix
-    ./modules/hypr.nix
-    ./modules/nvim.nix
-  ];
+  # imports = [
+  #   ./modules/kitty.nix
+  #   ./modules/hypr.nix
+  #   ./modules/nvim.nix
+  # ];
 }
