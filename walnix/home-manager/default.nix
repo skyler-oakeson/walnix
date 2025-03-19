@@ -1,7 +1,8 @@
-{ ... }:
+{ inputs, ... }:
 { pkgs, config, lib, ... }:
 let
   cfg = config.walnix;
+  # modules = import "${inputs.self}/walnix/iterload.nix" { inherit lib inputs; };
   scheme = lib.importJSON (pkgs.runCommand "scheme" { 
       HOME = "./";
     } ''
@@ -25,13 +26,13 @@ let
 in
 {
   options.walnix = with lib; {
-    enable = mkEnableOption { description = "Theme your desktop";
+    enable = mkEnableOption { description = "Use Wallust to theme your apps.";
       default = false;
     };
 
     alpha = mkOption {
       type = types.nullOr (types.ints.between 0 100);
-      default = null;
+      default = 100;
     };
 
     backend = mkOption {
@@ -126,7 +127,7 @@ in
 
   config = 
   let
-    conversion = import ../../lib/conversions.nix { inherit lib config; };
+    conversion = import "${inputs.self}/lib/conversions.nix" { inherit lib config; };
   in
   {
     walnix.colors = with conversion; { 
@@ -137,9 +138,5 @@ in
     };
   };
 
-  imports = [
-    ./modules/kitty.nix
-    ./modules/hypr.nix
-    ./modules/nvim.nix
-  ];
+  # imports = modules;
 }
